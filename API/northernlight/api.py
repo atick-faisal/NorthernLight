@@ -27,7 +27,6 @@ def user_data(request):
 
         # --------------- DO THINGS --------------- #
 
-
         serializer = UserDataSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
