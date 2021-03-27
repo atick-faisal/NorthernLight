@@ -8,7 +8,7 @@ class BarPlot extends Component {
 		let len = this.props.values.length;
 		let labels = [];
 		for(let i = 0; i < len; i++) {
-			labels[i] = i;
+			labels[i] = this.props.time[i].substring(11, 16);
 		}
 		return labels;
 	}

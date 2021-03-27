@@ -4,7 +4,7 @@ import './App.css';
 
 // pooling interval of serial data
 // lower this value to get faster refresh rate
-const interval = 600;
+const interval = 1000;
 
 class App extends Component {
   constructor() {
@@ -32,7 +32,7 @@ class App extends Component {
 		.then(values => {
 			values.reverse();
 			this.setState({values}, function() {
-				console.log('values fetched...', this.state.sensors);
+				// console.log('values fetched...', values.map(value => value.time));
 			})}
 		);
   	}
@@ -48,19 +48,25 @@ class App extends Component {
 				color[i] = 'rgba(216, 67, 21, 0.5)';
 			}
 		}
+
+		let temp = this.state.values.map(value => value.temp);
+		let hum = this.state.values.map(value => value.hum);
+		let light = this.state.values.map(value => value.light);
+		let time = this.state.values.map(value => value.time);
+
 		return(
 		<div className="App">
 			<div className="container">
 				<h1>Arduino Serial Monitor</h1>
 				<div className="card_container">
-					<BarPlot values = {this.state.values.map(value => value.temp)} title = {'Temperature'}/>
-					<BarPlot values = {this.state.values.map(value => value.hum)} title = {'Humidity'}/>
-					<BarPlot values = {this.state.values.map(value => value.light)} title = {'Light'}/>
+					<BarPlot time = {time} values = {temp} title = {'Temperature'}/>
+					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
+					<BarPlot time = {time} values = {light} title = {'Light'}/>
 				</div>
 				<div className="card_container">
-					<BarPlot values = {this.state.values.map(value => value.a3)} title = {3}/>
-					<BarPlot values = {this.state.values.map(value => value.a4)} title = {4}/>
-					<BarPlot values = {this.state.values.map(value => value.a5)} title = {5}/>
+					<BarPlot time = {time} values = {this.state.values.map(value => value.a3)} title = {3}/>
+					<BarPlot time = {time} values = {this.state.values.map(value => value.a4)} title = {4}/>
+					<BarPlot time = {time} values = {this.state.values.map(value => value.a5)} title = {5}/>
 				</div>
 				<div className="card_container">
 					<div className="card" style={{ backgroundColor: color[0]}}>
