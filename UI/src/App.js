@@ -1,249 +1,114 @@
 import React, { Component } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import BarPlot from './components/BarPlot';
 import './App.css';
-import temp from './assets/temp.svg';
-import hum from './assets/hum.svg';
-import light from './assets/light.svg';
 
-// interval between refresh
-const interval = 3000;
+// pooling interval of serial data
+// lower this value to get faster refresh rate
+const interval = 600;
 
 class App extends Component {
-	constructor() {
+  constructor() {
 		super();
 		this.state = {
-			sensors: []
+			values: []
 		}
 	}
 
-	// when component fetched reset the timer
+	// when component is mounted reset the timer
 	componentWillUnmount() {
 		clearInterval(this.timer);
 		this.timer = null;
 	  }
 
-	// send get reuest every 1sec
 	componentDidMount() {
 		this.timer = setInterval(() => this.getValues(), interval);
 	}
 
-	// get the values from the response and set the state
+	// fetch values from the server
+	// it is hosted at http://localhost:3500/values
 	getValues() {
-		// When using the express backend
-		// fetch('/api/sensors', {
-		// 	headers : { 
-		// 		'Content-Type': 'application/json',
-		// 		'Accept': 'application/json'
-		// 	   }
-		// })
-
-		fetch('/api/northernlight', {
-			headers : { 
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			   }
-		})
-		
-		// When using the mongodb backend
-		//fetch('https://us-east-1.aws.webhooks.mongodb-stitch.com/api/client/v2.0/app/sensor-dashboard-fyqrv/service/http/incoming_webhook/webhook0')
+		fetch('/api/northernlight/')
 		.then(res => res.json())
-		.then(sensors => {
-			sensors.reverse();
-			this.setState({sensors}, function() {
-				sensors.reverse();
-				console.log('sensors fetched...', sensors);
-				console.log(process.env.ip);
+		.then(values => {
+			values.reverse();
+			this.setState({values}, function() {
+				console.log('values fetched...', this.state.sensors);
 			})}
 		);
-	}
+  	}
 
-	render() {
+  
+  	render() {
+		let color = ['rgba(56, 142, 60,1.0)'];
+		// setting the color (red/green) for the digital values
+		for(let i = 0; i < 14; i++) {
+			if(true) {
+				color[i] = 'rgba(56, 142, 60, 0.5)';
+			} else {
+				color[i] = 'rgba(216, 67, 21, 0.5)';
+			}
+		}
 		return(
 		<div className="App">
 			<div className="container">
-
-				<h1>Sensor Dashboard</h1>
-
-				<div className="card_container topbar">
-					<div className="card">
-						<div className="icon"><img src={temp} alt="hot_icon" width="40vw"/></div>
-						<div className="title"><h2>Temperature</h2></div>
-						<div className="value"><h2>{this.state.sensors.map(sensor => sensor.temp)[this.state.sensors.length - 1]}</h2></div>
-					</div>
-					<div className="card">
-						<div className="icon"><img src={hum} alt="hum_icon" width="40vw"/></div>
-						<div className="title"><h2>Humidity</h2></div>
-						<div className="value"><h2>{this.state.sensors.map(sensor => sensor.hum)[this.state.sensors.length - 1]}</h2></div>
-					</div>
-					<div className="card">
-						<div className="icon"><img src={light} alt="light_icon" width="40vw"/></div>
-						<div className="title"><h2>Ambient Light</h2></div>
-						<div className="value"><h2>{this.state.sensors.map(sensor => sensor.light)[this.state.sensors.length - 1]}</h2></div>
-					</div>
-				</div>
-				
+				<h1>Arduino Serial Monitor</h1>
 				<div className="card_container">
-					<div className="card">
-						<div className="chart" height="600px">
-							<Line data = {{
-								//labels: this.state.sensors.map(sensor => sensor.Date.split()),
-								labels: [1, 2, 3, 4, 5, 6],
-								datasets: [{
-									label: 'Temperature',
-									data: this.state.sensors.map(sensor => sensor.temp),
-									backgroundColor: 'rgba(54, 162, 235, 0.2)',
-
-									borderColor: 'rgba(54, 162, 235, 1)',
-									borderWidth: 1
-								}]
-							}}
-							height={250}
-							options = {{
-								responsive: true,
-								responsiveAnimationDuration: 400,
-								maintainAspectRatio: false,
-								scales: {
-									xAxes: [{ 
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-										},
-									}],
-									yAxes: [{
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-											},
-									}],
-								}
-							}}/>
-						</div>
+					<BarPlot values = {this.state.values.map(value => value.temp)} title = {'Temperature'}/>
+					<BarPlot values = {this.state.values.map(value => value.hum)} title = {'Humidity'}/>
+					<BarPlot values = {this.state.values.map(value => value.light)} title = {'Light'}/>
+				</div>
+				<div className="card_container">
+					<BarPlot values = {this.state.values.map(value => value.a3)} title = {3}/>
+					<BarPlot values = {this.state.values.map(value => value.a4)} title = {4}/>
+					<BarPlot values = {this.state.values.map(value => value.a5)} title = {5}/>
+				</div>
+				<div className="card_container">
+					<div className="card" style={{ backgroundColor: color[0]}}>
+						<p><b>D0</b></p>
 					</div>
-
-					<div className="card">
-					<div className="chart">
-							<Bar data = {{
-								//labels: this.state.sensors.map(sensor => sensor.id),
-								labels: [1, 2, 3, 4, 5, 6],
-								datasets: [{
-									label: 'Humidity',
-									data: this.state.sensors.map(sensor => sensor.hum),
-									backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)'
-									],
-									borderColor: [
-										'rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'
-									],
-									borderWidth: 1
-								}]
-							}}
-							height={250}
-							options = {{
-								responsive: true,
-								responsiveAnimationDuration: 400,
-								maintainAspectRatio: false,
-								scales: {
-									xAxes: [{ 
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-										},
-									}],
-									yAxes: [{
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-											},
-									}],
-								}
-							}}/>
-						</div>
+					<div className="card" style={{ backgroundColor: color[1]}}>
+						<p><b>D1</b></p>
 					</div>
-					
-					<div className="card">
-					<div className="chart">
-							<Line data = {{
-								//labels: this.state.sensors.map(sensor => sensor.id),
-								labels: [1, 2, 3, 4, 5, 6],
-								datasets: [{
-									label: 'Ambient Light',
-									data: this.state.sensors.map(sensor => sensor.light),
-									backgroundColor: 
-										'rgba(75, 192, 192, 0.2)',
-									borderColor:
-										'rgba(75, 192, 192, 1)',
-									borderWidth: 1
-								},
-								{
-									label: 'Temperature',
-									data: this.state.sensors.map(sensor => sensor.temp),
-									backgroundColor: 'rgba(54, 162, 235, 0.1)',
-
-									borderColor: 'rgba(54, 162, 235, 1)',
-									borderWidth: 1
-								}]
-							}}
-							height={250}
-							options = {{
-								responsive: true,
-								responsiveAnimationDuration: 400,
-								maintainAspectRatio: false,
-								scales: {
-									xAxes: [{ 
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-										},
-									}],
-									yAxes: [{
-										gridLines: {
-											display: false,
-											color: "#666"
-										},
-										ticks: {
-											fontColor: "#999"
-											},
-									}],
-								}
-							}}/>
-						</div>
+					<div className="card" style={{ backgroundColor: color[2]}}>
+						<p><b>D2</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[3]}}>
+						<p><b>D3</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[4]}}>
+						<p><b>D4</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[5]}}>
+						<p><b>D5</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[6]}}>
+						<p><b>D6</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[7]}}>
+						<p><b>D7</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[8]}}>
+						<p><b>D8</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[9]}}>
+						<p><b>D9</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[10]}}>
+						<p><b>D10</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[11]}}>
+						<p><b>D11</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[12]}}>
+						<p><b>D12</b></p>
+					</div>
+					<div className="card" style={{ backgroundColor: color[13]}}>
+						<p><b>D13</b></p>
 					</div>
 				</div>
 			</div>
-			<footer>
-				<a href="https://github.com/atick-faisal/Sensor-Dashboard">Documentation</a>
-				&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;
-				<a href="https://github.com/atick-faisal/Sensor-Dashboard/blob/master/api_reference.md">Reference</a>
-				<p>&copy; Atick Faisal, 2019</p>
-			</footer>
-		</div>
-		);
-	}
+		</div> );
+  	}
 }
 
 export default App;
