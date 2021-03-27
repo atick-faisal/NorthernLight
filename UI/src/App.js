@@ -27,7 +27,7 @@ class App extends Component {
 	// fetch values from the server
 	// it is hosted at http://localhost:3500/values
 	getValues() {
-		fetch('/api/northernlight/')
+		fetch('/api/status/')
 		.then(res => res.json())
 		.then(values => {
 			values.reverse();

@@ -11,7 +11,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from northernlight import api
 
 urlpatterns = [
-    path('api/northernlight/', api.user_data)
+    path('api/status/', api.status),
+    path('api/control/<int:pk>/', api.control)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

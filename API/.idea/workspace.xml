@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cefeead-5607-4991-a9ab-9c15e0351f08" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../UI/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/northernlight/migrations/0003_auto_20210327_2233.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/seralizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/seralizers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UI/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
