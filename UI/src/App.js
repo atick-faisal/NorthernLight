@@ -47,10 +47,14 @@ class App extends Component {
 		// When using the mongodb backend
 		//fetch('https://us-east-1.aws.webhooks.mongodb-stitch.com/api/client/v2.0/app/sensor-dashboard-fyqrv/service/http/incoming_webhook/webhook0')
 		.then(res => res.json())
-		.then(sensors => this.setState({sensors}, function() {
-			console.log('sensors fetched...', sensors);
-			console.log(process.env.ip);
-		}));
+		.then(sensors => {
+			sensors.reverse();
+			this.setState({sensors}, function() {
+				sensors.reverse();
+				console.log('sensors fetched...', sensors);
+				console.log(process.env.ip);
+			})}
+		);
 	}
 
 	render() {
