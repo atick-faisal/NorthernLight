@@ -7,6 +7,7 @@
 // ---------------- WIFI ---------------- //
 const char* SSID = "POCO M2 Pro";
 const char* PASS = "12345678";
+// String serverName = "https://shrouded-meadow-04832.herokuapp.com/api/sensors";
 String serverName = "http://192.168.43.172:8000/api/northernlight/";
 
 // ------------------- FUNCTION PROTOTYPES ---------------//
@@ -16,7 +17,7 @@ void __post_data();
 //------------------ DHT CONFIG ------------------ //
 #define DHTTYPE DHT11
 #define DHT_PIN 32
-#define DHT_PERIOD 5000
+#define DHT_PERIOD 3000
 DHT dht(DHT_PIN, DHTTYPE);
 float temperature = 0.0;
 float humidity = 0.0;
@@ -58,8 +59,9 @@ void loop() {
 void __read_dht_data() {
   humidity = dht.readHumidity();
   temperature = dht.readTemperature();
-  jsonData["humidity"] = humidity;
-  jsonData["temperature"] = temperature;
+  jsonData["hum"] = random(40, 100);
+  jsonData["temp"] = random(40, 100);
+  jsonData["light"] = random(40, 100);
   __post_data();
 }
 
@@ -72,8 +74,14 @@ void __post_data() {
     http.begin(serverName);
     http.addHeader("Content-Type", "application/json");
     int httpResponseCode = http.POST(jsonString);
-    Serial.print("HTTP RESPONSE : ");
-    Serial.println(httpResponseCode);
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("------- DATA SENT SUCCESSFULLY ------ ");
+      Serial.println(response);
+    } else {
+      Serial.print("ERROR SENDING DATA. ERROR CODE : ");
+      Serial.println(httpResponseCode);
+    }
     http.end();
   }
   else {

@@ -18,7 +18,7 @@ from northernlight.seralizers import UserDataSerializer
 @csrf_exempt
 def user_data(request):
     if request.method == 'GET':
-        data = UserData.objects.all()
+        data = UserData.objects.all().order_by('time').reverse()[:6]
         serializer = UserDataSerializer(data, many=True)
         return JsonResponse(serializer.data, safe=False)
 

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cefeead-5607-4991-a9ab-9c15e0351f08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/northernlight/migrations/0002_auto_20210326_0637.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/API/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/northernlight/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ESP32/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../ESP32/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
