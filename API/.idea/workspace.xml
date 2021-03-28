@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cefeead-5607-4991-a9ab-9c15e0351f08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/northernlight/migrations/0003_auto_20210327_2233.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/northernlight/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/northernlight/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/northernlight/seralizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/seralizers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/northernlight/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UI/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/src/components/BarPlot.js" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/components/BarPlot.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616727374706</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="control route added">
+      <created>1616885128372</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616885128372</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,6 +106,7 @@
     <MESSAGE value="django app created" />
     <MESSAGE value="django app init" />
     <MESSAGE value="api done" />
-    <option name="LAST_COMMIT_MESSAGE" value="api done" />
+    <MESSAGE value="control route added" />
+    <option name="LAST_COMMIT_MESSAGE" value="control route added" />
   </component>
 </project>

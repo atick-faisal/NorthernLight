@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BarPlot from './components/BarPlot';
+import ControlElement from './components/ControlElement';
 import './App.css';
 
 // pooling interval of serial data
@@ -10,8 +11,13 @@ class App extends Component {
   constructor() {
 		super();
 		this.state = {
-			values: []
+			values: [],
+			control: {
+				port1: false,
+				port2: false
+			}
 		}
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	// when component is mounted reset the timer
@@ -31,11 +37,28 @@ class App extends Component {
 		.then(res => res.json())
 		.then(values => {
 			values.reverse();
-			this.setState({values}, function() {
+			this.setState({values: values}, function() {
 				// console.log('values fetched...', values.map(value => value.time));
 			})}
 		);
   	}
+
+	handleClick(port) {
+		let newControl = this.state.control;
+		let currentState = this.state.control[port];
+		newControl[port] = !currentState;
+		this.setState({
+			control: newControl
+		})
+	}
+
+	handleSwitch1(checked) {
+		this.setState({control: {port1: checked}});
+	}
+
+	handleSwitch2(checked) {
+		this.setState({control: {port2: checked}});
+	}
 
   
   	render() {
@@ -57,16 +80,21 @@ class App extends Component {
 		return(
 		<div className="App">
 			<div className="container">
-				<h1>Arduino Serial Monitor</h1>
+				<h1>Northern Light</h1>
+				<div className="card_container">
+					<div className="card_container_vertical">
+						<div className='card'>
+							<div className="control_title">Control Panel</div><br></br>
+							<ControlElement port={'port1'} elementName={'Room Light'} status={this.state.control.port1} onClick={this.handleClick}/>
+							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
+						</div>
+					</div>
+					<div className='large_card'></div>
+				</div>
 				<div className="card_container">
 					<BarPlot time = {time} values = {temp} title = {'Temperature'}/>
 					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
 					<BarPlot time = {time} values = {light} title = {'Light'}/>
-				</div>
-				<div className="card_container">
-					<BarPlot time = {time} values = {this.state.values.map(value => value.a3)} title = {3}/>
-					<BarPlot time = {time} values = {this.state.values.map(value => value.a4)} title = {4}/>
-					<BarPlot time = {time} values = {this.state.values.map(value => value.a5)} title = {5}/>
 				</div>
 				<div className="card_container">
 					<div className="card" style={{ backgroundColor: color[0]}}>

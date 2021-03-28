@@ -13,6 +13,15 @@ class BarPlot extends Component {
 		return labels;
 	}
 
+    getHeight() {
+        if (this.props.height === undefined) {
+            return 170
+        }
+        else {
+            return this.props.height
+        }
+    }
+
     render() {
         // background colors for the bars
         let backgroundColor = [
@@ -71,7 +80,7 @@ class BarPlot extends Component {
                             borderWidth: 1
                         }]
                     }}
-                    height={170}
+                    height={this.getHeight()}
                     options = {{
                         responsive: true,
                         responsiveAnimationDuration: 400,
