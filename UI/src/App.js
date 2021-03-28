@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BarPlot from './components/BarPlot';
+import ScatterPlot from './components/ScatterPlot';
 import ControlElement from './components/ControlElement';
 import './App.css';
 
@@ -100,6 +101,18 @@ class App extends Component {
 		let hum = this.state.values.map(value => value.hum);
 		let light = this.state.values.map(value => value.light);
 		let time = this.state.values.map(value => value.time);
+		let normal = this.state.values.map(function(value) {
+			return {
+				x: value.hum,
+				y: value.temp
+			}
+		});
+		let anomalous = this.state.values.map(function(value) {
+			return {
+				x: value.light,
+				y: value.temp
+			}
+		});
 
 		return(
 		<div className="App">
@@ -115,14 +128,14 @@ class App extends Component {
 							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
 						</div>
 					</div>
-					<div className='large_card'></div>
+					<ScatterPlot className="large_card" time = {time} normal = {normal} anomalous = {anomalous} title = {'XY'}/>
 				</div>
 				<div className="card_container">
 					<BarPlot time = {time} values = {temp} title = {'Temperature'}/>
 					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
 				</div>
 				<div className="card_container">
-					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
+					<BarPlot time = {time} values = {hum} title = {'Light'}/>	
 					<BarPlot time = {time} values = {light} title = {'Light'}/>
 				</div>
 				<div className="card_container">
