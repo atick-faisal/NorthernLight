@@ -4,8 +4,8 @@
     <list default="true" id="3cefeead-5607-4991-a9ab-9c15e0351f08" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UI/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UI/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/northernlight/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/northernlight/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ESP32/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../ESP32/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UI/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UI/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UI/src/components/BarPlot.js" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/src/components/BarPlot.js" afterDir="false" />

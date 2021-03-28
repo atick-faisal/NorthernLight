@@ -19,7 +19,7 @@ from northernlight.seralizers import UserDataSerializer, UserControlSerializer
 @api_view(['GET', 'POST'])
 def status(request):
     if request.method == 'GET':
-        data = UserData.objects.all().order_by('id').reverse()[:6]
+        data = UserData.objects.all().order_by('id').reverse()[:12]
         serializer = UserDataSerializer(data, many=True)
         return JsonResponse(serializer.data, safe=False)
 

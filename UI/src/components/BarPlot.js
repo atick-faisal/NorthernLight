@@ -15,7 +15,7 @@ class BarPlot extends Component {
 
     getHeight() {
         if (this.props.height === undefined) {
-            return 170
+            return 220
         }
         else {
             return this.props.height
@@ -55,7 +55,7 @@ class BarPlot extends Component {
         ];
         return(
             <div className="card">
-                <p>{this.props.title + ': ' + this.props.values[this.props.values.length - 1]}</p>
+                <h3>{this.props.title + ': ' + this.props.values[this.props.values.length - 1]}</h3>
                 <div className="chart" height="600px">
                     <Bar data = {{
                         labels: this.createlabels(),
@@ -66,20 +66,20 @@ class BarPlot extends Component {
                         //     type: 'line',
                         //     label: 'null',
                         //     data: this.props.values,
-                        //     borderColor: 'rgb(2, 136, 209)',
-                        //     backgroundColor: 'rgb(0, 0, 0, 0)',
+                        //     borderColor: 'rgba(2, 136, 209, 0.5)',
+                        //     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         //     borderWidth: 2
                         // }, 
                         //-----------------------------------------------//
                         {
                             type: 'bar',
-                            label: 'null',
+                            label: this.props.title,
                             data: this.props.values,
                             backgroundColor: backgroundColor,
                             borderColor: borderColor,
                             borderWidth: 1
-                        }]
-                    }}
+                        }
+                    ]}}
                     height={this.getHeight()}
                     options = {{
                         responsive: true,
@@ -104,6 +104,8 @@ class BarPlot extends Component {
                                     color: "#666"
                                 },
                                 ticks: {
+                                    min: 10,
+                                    max: 100,
                                     fontColor: "#999"
                                     },
                             }],

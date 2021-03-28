@@ -15,8 +15,10 @@ class App extends Component {
 			control: {
 				port1: false,
 				port2: false
-			}
-		}
+			},
+			time: ''
+		};
+
 		this.handleClick = this.handleClick.bind(this);
 	}
 
@@ -37,11 +39,32 @@ class App extends Component {
 		.then(res => res.json())
 		.then(values => {
 			values.reverse();
-			this.setState({values: values}, function() {
+			this.setState({
+				values: values,
+				time: values[values.length - 1].time.substring(11, 16)
+			}, function() {
 				// console.log('values fetched...', values.map(value => value.time));
 			})}
 		);
   	}
+
+	putControl() {
+		fetch('/api/control/1/', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state.control)
+		})
+		.then(res => res.json())
+		.then(control => {
+			this.setState({
+				control: control,
+			}, function() {
+				console.log('control updated...', control);
+			})}
+		);
+	}
 
 	handleClick(port) {
 		let newControl = this.state.control;
@@ -50,6 +73,7 @@ class App extends Component {
 		this.setState({
 			control: newControl
 		})
+		this.putControl();
 	}
 
 	handleSwitch1(checked) {
@@ -82,9 +106,11 @@ class App extends Component {
 			<div className="container">
 				<h1>Northern Light</h1>
 				<div className="card_container">
-					<div className="card_container_vertical">
-						<div className='card'>
+					<div className='card'>
+						<div className="card_container_vertical">
 							<div className="control_title">Control Panel</div><br></br>
+							<div className="current_time">{this.state.time}</div>
+							<div className="last_updated"><p>Last Updated</p></div><br></br>
 							<ControlElement port={'port1'} elementName={'Room Light'} status={this.state.control.port1} onClick={this.handleClick}/>
 							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
 						</div>
@@ -93,6 +119,9 @@ class App extends Component {
 				</div>
 				<div className="card_container">
 					<BarPlot time = {time} values = {temp} title = {'Temperature'}/>
+					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
+				</div>
+				<div className="card_container">
 					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
 					<BarPlot time = {time} values = {light} title = {'Light'}/>
 				</div>

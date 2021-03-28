@@ -21,6 +21,14 @@ h1 {
   text-align: center;
 }
 
+h3 {
+  padding: 0px;
+  margin: 4px;
+  font-weight: 300;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 .App {
   background-color: #282c34;
   color: #eeeeee;
@@ -70,15 +78,41 @@ h1 {
 
 .control_title {
   font-size: large;
-  text-align: left;
 }
 
 .control_element {
   cursor: pointer;
 }
 
+.current_time {
+  font-size: 56px;
+  font-weight: 100;
+}
+
 @media only screen and (max-width: 600px) {
   .card_container {
     flex-direction: column;
   }
+}
+
+/* ------------- SCROLL BAR -------------- */
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #282c34;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #302e38;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #342f40;
 }
