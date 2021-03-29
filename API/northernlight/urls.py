@@ -12,7 +12,8 @@ from northernlight import api
 
 urlpatterns = [
     path('api/status/', api.status),
-    path('api/control/<int:pk>/', api.control)
+    path('api/devices/', api.devices),
+    path('api/devices/<int:pk>/', api.control)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

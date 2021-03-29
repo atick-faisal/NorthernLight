@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from northernlight.models import UserData, UserControl
+from northernlight.models import UserData, Devices
 
 
 class UserDataSerializer(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class UserDataSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserControlSerializer(serializers.ModelSerializer):
+class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserControl
+        model = Devices
         fields = '__all__'

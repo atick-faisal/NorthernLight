@@ -12,8 +12,8 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
-from northernlight.models import UserData, UserControl
-from northernlight.seralizers import UserDataSerializer, UserControlSerializer
+from northernlight.models import UserData, Devices
+from northernlight.seralizers import UserDataSerializer, DeviceSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -35,27 +35,39 @@ def status(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-@api_view(['GET', 'POST', 'PUT'])
-def control(request, pk):
+@api_view(['GET', 'POST'])
+def devices(request):
+    if request.method == 'GET':
+        data = Devices.objects.all().order_by('port')
+        serializer = DeviceSerializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        port = data["port"]
+
+        # --------------- DO THINGS --------------- #
+
+        serializer = DeviceSerializer(data=data)
+        if serializer.is_valid() and not Devices.objects.filter(port=port).exists():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+@api_view(['GET', 'PATCH'])
+def control(request, pk):
     try:
-        data = UserControl.objects.get(pk=pk)
-    except UserControl.DoesNotExist:
-        if request.method == 'POST':
-            data = JSONParser().parse(request)
-            serializer = UserControlSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                return JsonResponse(serializer.data, status=201)
-            return JsonResponse(serializer.errors, status=400)
+        data = Devices.objects.get(pk=pk)
+    except Devices.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = UserControlSerializer(data)
+        serializer = DeviceSerializer(data)
         return JsonResponse(serializer.data, safe=False)
 
-    elif request.method == 'PUT':
-        serializer = UserControlSerializer(data, data=request.data)
+    elif request.method == 'PATCH':
+        serializer = DeviceSerializer(data, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)

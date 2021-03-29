@@ -6,9 +6,11 @@ class UserData(models.Model):
     hum = models.PositiveIntegerField()
     temp = models.PositiveIntegerField()
     light = models.PositiveIntegerField()
-    anomaly = models.FloatField()
+    anomaly = models.FloatField(default=20)
+    condition = models.PositiveIntegerField(default=666)
 
 
-class UserControl(models.Model):
-    port1 = models.BooleanField(default=False)
-    port2 = models.BooleanField(default=False)
+class Devices(models.Model):
+    name = models.TextField(default="Unnamed")
+    port = models.PositiveIntegerField(default=1)
+    state = models.BooleanField(default=False)
