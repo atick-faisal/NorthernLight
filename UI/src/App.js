@@ -8,6 +8,7 @@ import bpIcon from './assets/bp.svg'
 import calIcon from './assets/calories.svg'
 import heartIcon from './assets/heart.svg'
 import stepsIcon from './assets/steps.svg'
+import bmiIcon from './assets/bmi.svg'
 import logo from './assets/logo.png'
 import './App.css';
 
@@ -148,7 +149,7 @@ class App extends Component {
               <HealthCard icon={heartIcon} title={'Heart Rate'} value={100} status={false} />
               <HealthCard icon={bpIcon} title={'Blood Pressure'} value={'80/120'} status={true} />
               <HealthCard icon={stepsIcon} title={'Step Count'} value={8124} status={true} />
-              <HealthCard icon={stepsIcon} title={'Step Count'} value={8124} status={true} />
+              <HealthCard icon={bmiIcon} title={'BMI'} value={25} status={true} />
             </div>
             <div className="card">
               <h3>Behaviour Analysis</h3>

@@ -8,9 +8,9 @@
 const char* SSID = "Harbinger";
 const char* PASS = "qwerty12345";
 String statusRoute = "http://192.168.0.100:8000/api/status/";
-String controlRoute = "http://192.168.0.100:8000/api/control/1/";
-#define POST_INTERVAL 7000
-#define GET_INTERVAL 1000
+String devicesRoute = "http://192.168.0.100:8000/api/devices/";
+#define POST_INTERVAL 10000
+#define GET_INTERVAL 3000
 
 // ------------------- FUNCTION PROTOTYPES ---------------//
 void __read_dht_data();
@@ -102,15 +102,19 @@ void __post_data() {
 // ------------------ GET DATA ----------------- //
 void __get_data() {
   if(WiFi.status()== WL_CONNECTED){
-    StaticJsonDocument<200> controlStatus;
+    StaticJsonDocument<200> devices;
     HTTPClient http;
-    http.begin(controlRoute);
+    http.begin(devicesRoute);
     int httpResponseCode = http.GET();
     if (httpResponseCode > 0) {
       String response = http.getString();
-      deserializeJson(controlStatus, response);
-      bool port1 = controlStatus["port1"];
-      digitalWrite(LED_BUILTIN, port1);
+      deserializeJson(devices, response);
+      JsonArray devicesArray = devices.as<JsonArray>();
+      for (JsonObject device: devicesArray) {
+        if (device["port"] == 1) {
+          digitalWrite(LED_BUILTIN, device["state"]);
+        }
+      }
       Serial.println("[ GET ] DATA RECEIVED SUCCESSFULLY ... ");
     } else {
       Serial.print("ERROR RECEIVING DATA. ERROR CODE : ");
