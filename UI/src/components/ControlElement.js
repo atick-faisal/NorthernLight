@@ -11,7 +11,6 @@ class ControlElement extends Component {
     return (
         <div 
             className="card control_element"
-            port={this.props.port}
             style={{ backgroundColor: color}}
             onClick={() => this.props.onClick(this.props.port)}>
                 {this.props.elementName} : {this.props.status? 'ON' : 'OFF'}

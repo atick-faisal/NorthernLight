@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import BarPlot from './components/BarPlot';
 import LinePlot from './components/LinePlot';
-import ScatterPlot from './components/ScatterPlot';
+import HealthCard from './components/HealthCard';
 import ControlElement from './components/ControlElement';
+import bpIcon from './assets/bp.svg'
+import calIcon from './assets/calories.svg'
+import heartIcon from './assets/heart.svg'
+import stepsIcon from './assets/steps.svg'
 import './App.css';
 
 // pooling interval of serial data
@@ -120,14 +124,11 @@ class App extends Component {
 							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
 						</div>
 					</div>
-					<div className='card'>
-						<div className="card_container_vertical">
-							<div className="control_title">Control Panel</div><br></br>
-							<div className="current_time">{this.state.time}</div>
-							<div className="last_updated"><p>Last Updated</p></div><br></br>
-							<ControlElement port={'port1'} elementName={'Room Light'} status={this.state.control.port1} onClick={this.handleClick}/>
-							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
-						</div>
+					<div className="card_container_vertical">
+						<HealthCard icon = {calIcon} title = {'Calories'} value = {1600} status = {true}/>
+						<HealthCard icon = {heartIcon} title = {'Heart Rate'} value = {100} status = {false}/>
+						<HealthCard icon = {bpIcon} title = {'Blood Pressure'} value = {'80/120'} status = {true}/>
+						<HealthCard icon = {stepsIcon} title = {'Step Count'} value = {8124} status = {true}/>
 					</div>
 					<div className="card">
 						<h3>Behaviour Analysis</h3>
