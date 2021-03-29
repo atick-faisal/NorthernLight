@@ -3,8 +3,10 @@ body {
 }
 
 a {
+  color: #999;
   text-decoration: none;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 p {
@@ -16,8 +18,10 @@ p {
 
 h1 {
   padding: 0px;
-  font-weight: lighter;
+  font-weight: 300;
   font-size: 1.4rem;
+  margin-top: 0px;
+  margin-bottom: 32px;
   text-align: center;
 }
 
@@ -27,6 +31,11 @@ h3 {
   font-weight: 300;
   font-size: 1.2rem;
   text-align: center;
+}
+
+footer {
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 
 .App {
@@ -61,6 +70,11 @@ h3 {
   transition: 0.3s;
 }
 
+.logo {
+  margin-top: 32px;
+  margin-bottom: 8px;
+}
+
 .health_card {
   display: flex;
   padding: 0;
@@ -85,6 +99,10 @@ h3 {
   align-content: center;
   border-radius: 0px 4px 4px 0px;
   flex: 3;
+}
+
+.health_value h3 {
+  font-weight: 400;
 }
 
 .large_card {
