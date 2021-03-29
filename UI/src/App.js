@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BarPlot from './components/BarPlot';
+import LinePlot from './components/LinePlot';
 import ScatterPlot from './components/ScatterPlot';
 import ControlElement from './components/ControlElement';
 import './App.css';
@@ -85,34 +86,25 @@ class App extends Component {
 		this.setState({control: {port2: checked}});
 	}
 
+    createXLabels(xAxes, isTimestamp=false) {
+		let len = xAxes.length;
+		let labels = [];
+		for(let i = 0; i < len; i++) {
+			if (isTimestamp) labels[i] = xAxes[i].substring(11, 16);
+			else labels[i] = xAxes[i];
+		}
+		return labels;
+	}
+
   
   	render() {
-		let color = ['rgba(56, 142, 60,1.0)'];
-		// setting the color (red/green) for the digital values
-		for(let i = 0; i < 14; i++) {
-			if(true) {
-				color[i] = 'rgba(56, 142, 60, 0.5)';
-			} else {
-				color[i] = 'rgba(216, 67, 21, 0.5)';
-			}
-		}
-
 		let temp = this.state.values.map(value => value.temp);
 		let hum = this.state.values.map(value => value.hum);
 		let light = this.state.values.map(value => value.light);
 		let time = this.state.values.map(value => value.time);
-		let normal = this.state.values.map(function(value) {
-			return {
-				x: value.hum,
-				y: value.temp
-			}
-		});
-		let anomalous = this.state.values.map(function(value) {
-			return {
-				x: value.light,
-				y: value.temp
-			}
-		});
+		let anomaly = this.state.values.map(value => value.anomaly);
+		let anomalous = anomaly[anomaly.length - 1]
+		let normal = 100 - anomalous;
 
 		return(
 		<div className="App">
@@ -128,58 +120,41 @@ class App extends Component {
 							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
 						</div>
 					</div>
-					<ScatterPlot className="large_card" time = {time} normal = {normal} anomalous = {anomalous} title = {'XY'}/>
+					<div className='card'>
+						<div className="card_container_vertical">
+							<div className="control_title">Control Panel</div><br></br>
+							<div className="current_time">{this.state.time}</div>
+							<div className="last_updated"><p>Last Updated</p></div><br></br>
+							<ControlElement port={'port1'} elementName={'Room Light'} status={this.state.control.port1} onClick={this.handleClick}/>
+							<ControlElement port={'port2'} elementName={'Ceiling Fan'} status={this.state.control.port2} onClick={this.handleClick}/>
+						</div>
+					</div>
+					<div className="card">
+						<h3>Behaviour Analysis</h3>
+						<BarPlot xLabels = {['Normal', 'Anomalous']} values = {[normal, anomalous]} height = {160} min = {0} max = {100}/>
+						<p>How are you feeling today?</p>
+						
+
+					</div>
 				</div>
 				<div className="card_container">
-					<BarPlot time = {time} values = {temp} title = {'Temperature'}/>
-					<BarPlot time = {time} values = {hum} title = {'Humidity'}/>
+					<div className="card">
+						<h3>Temperature | Light</h3>
+						<LinePlot xLabels = {this.createXLabels(time, true)} datasets = {[temp, light]} labels = {['Temperature', 'Light']}/>
+					</div>
+					<div className="card">
+                		<h3>{'Temperature: ' + temp[temp.length - 1]}</h3>
+						<BarPlot xLabels = {this.createXLabels(time, true)} values = {temp} title = {'Temperature'} dispY = {true}/>
+					</div>
 				</div>
 				<div className="card_container">
-					<BarPlot time = {time} values = {hum} title = {'Light'}/>	
-					<BarPlot time = {time} values = {light} title = {'Light'}/>
-				</div>
-				<div className="card_container">
-					<div className="card" style={{ backgroundColor: color[0]}}>
-						<p><b>D0</b></p>
+					<div className="card">
+                		<h3>{'Humidity: ' + hum[hum.length - 1]}</h3>
+						<BarPlot xLabels = {this.createXLabels(time, true)} values = {hum} title = {'Humidity'} dispY = {true}/>
 					</div>
-					<div className="card" style={{ backgroundColor: color[1]}}>
-						<p><b>D1</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[2]}}>
-						<p><b>D2</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[3]}}>
-						<p><b>D3</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[4]}}>
-						<p><b>D4</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[5]}}>
-						<p><b>D5</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[6]}}>
-						<p><b>D6</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[7]}}>
-						<p><b>D7</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[8]}}>
-						<p><b>D8</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[9]}}>
-						<p><b>D9</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[10]}}>
-						<p><b>D10</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[11]}}>
-						<p><b>D11</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[12]}}>
-						<p><b>D12</b></p>
-					</div>
-					<div className="card" style={{ backgroundColor: color[13]}}>
-						<p><b>D13</b></p>
+					<div className="card">
+						<h3>Temperature | Humidity | Light</h3>
+						<LinePlot xLabels = {this.createXLabels(time, true)} datasets = {[temp, hum, light]} labels = {['Temperature', 'Humidity', 'Light']}/>
 					</div>
 				</div>
 			</div>

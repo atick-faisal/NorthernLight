@@ -24,63 +24,60 @@ class ScatterPlot extends Component {
 
     render() {
         return(
-            <div className="large_card">
-                <h3>Anomaly Detection</h3><br></br>
-                <div className="chart" height="600px">
-                    <Scatter data = {{
-                        // labels: this.createlabels(),
-                        datasets: [
-                        {
-                            label: 'Normal',
-                            data: this.props.normal,
-                            backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                            borderWidth: 1,
-                            radius: 6
-                        },
-                        {
-                            label: 'Anomalous',
-                            data: this.props.anomalous,
-                            backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                            borderWidth: 1,
-                            radius: 6
-                        },
-                    ]}}
-                    height={this.getHeight()}
-                    options = {{
-                        responsive: true,
-                        responsiveAnimationDuration: 400,
-                        maintainAspectRatio: false,
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: {
-                                fontColor: 'rgb(255, 255, 255)'
-                            }
-                        },
-                        scales: {
-                            xAxes: [{ 
-                                gridLines: {
-                                    display: false,
-                                    color: "#666"
-                                },
-                                ticks: {
-                                    display: false,
-                                    fontColor: "#999"
-                                },
-                            }],
-                            yAxes: [{
-                                gridLines: {
-                                    display: false,
-                                    color: "#666"
-                                },
-                                ticks: {
-                                    display: false,
-                                    fontColor: "#999"
-                                    },
-                            }],
+            <div className="chart" height="600px">
+                <Scatter data = {{
+                    // labels: this.createlabels(),
+                    datasets: [
+                    {
+                        label: 'Normal',
+                        data: this.props.normal,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderWidth: 1,
+                        radius: 6
+                    },
+                    {
+                        label: 'Anomalous',
+                        data: this.props.anomalous,
+                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                        borderWidth: 1,
+                        radius: 6
+                    },
+                ]}}
+                height={this.getHeight()}
+                options = {{
+                    responsive: true,
+                    responsiveAnimationDuration: 400,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            fontColor: 'rgb(255, 255, 255)'
                         }
-                    }}/>
-                </div>
+                    },
+                    scales: {
+                        xAxes: [{ 
+                            gridLines: {
+                                display: false,
+                                color: "#666"
+                            },
+                            ticks: {
+                                display: false,
+                                fontColor: "#999"
+                            },
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false,
+                                color: "#666"
+                            },
+                            ticks: {
+                                display: false,
+                                fontColor: "#999"
+                                },
+                        }],
+                    }
+                }}/>
             </div>
         )
     }

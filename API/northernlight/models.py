@@ -6,6 +6,7 @@ class UserData(models.Model):
     hum = models.PositiveIntegerField()
     temp = models.PositiveIntegerField()
     light = models.PositiveIntegerField()
+    anomaly = models.FloatField()
 
 
 class UserControl(models.Model):
