@@ -1,4 +1,4 @@
-# NorthernLight-ESP32
+# NorthernLight
 Dashboard for monitoring data from IoT devices and performing machine learning analysis (Unfinished).
 
 <br>
